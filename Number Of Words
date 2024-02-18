@@ -1,0 +1,42 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+
+using namespace std;
+
+// Function to count the number of words in a given string
+int countWords(const string &str) {
+    stringstream ss(str);
+    string word;
+    int count = 0;
+    while (ss >> word)
+        count++;
+    return count;
+}
+
+int main() {
+    string filename;
+    cout << "Enter the filename: ";
+    cin >> filename;
+
+    ifstream file(filename);
+    
+    if (!file) {
+        cerr << "Error opening file." << endl;
+        return 1;
+    }
+
+    string line;
+    int totalWords = 0;
+
+    while (getline(file, line)) {
+        totalWords += countWords(line);
+    }
+
+    file.close();
+
+    cout << "Total number of words in the file: " << totalWords << endl;
+
+    return 0;
+}
